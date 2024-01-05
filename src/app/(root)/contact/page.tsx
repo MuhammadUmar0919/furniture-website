@@ -54,10 +54,12 @@ function Contact() {
                   placeholder="Type your message..."
                   className="w-full border-[1px] border-solid border-rgba(0, 0, 0, 0.25) rounded-[10px] px-[12px] py-[10px] outline-none"
                 ></textarea>
+
                 <Checkbox
                   label="I accept the Terms"
                   defaultChecked
                   color="indigo"
+                  crossOrigin="anonymous"
                 />
               </div>
               <Button placeholder type="submit" className="btn !mt-0">

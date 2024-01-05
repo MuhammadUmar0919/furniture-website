@@ -60,9 +60,10 @@ function Pagination({
       </Button>
       <div className="flex items-center gap-2">
         {Array.from({ length: totalPages }, (_, index) => (
-          <IconButton className="bg-lightCyan text-primary font-bold" placeholder key={index} {...getItemProps(index + 1)}>
-            {index + 1}
-          </IconButton>
+         <IconButton className="bg-lightCyan text-primary font-bold" placeholder key={index} {...(getItemProps(index + 1) as UpdatedIconButtonProps)}>
+         {index + 1}
+       </IconButton>
+       
         ))}
       </div>
       <Button

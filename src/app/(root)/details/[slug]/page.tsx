@@ -36,17 +36,18 @@ function Details() {
 
   // Initialize products and quantity from localStorage on component mount
   useEffect(() => {
-    const storedProducts = JSON.parse(localStorage.getItem("carts") || "[]")
-    setProducts(storedProducts)
-
-    const storedItem = storedProducts.find(
-      (product) => product.id === Number(slug)
-    )
+    const storedProducts: Product[] = JSON.parse(localStorage.getItem("carts") || "[]");
+    setProducts(storedProducts);
+  
+    const storedItem: Product | undefined = storedProducts.find(
+      (product: Product) => product.id === Number(slug)
+    );
+  
     if (storedItem) {
-      setQuantity(storedItem.quantity)
+      setQuantity(storedItem.quantity);
     }
-  }, [slug])
-
+  }, [slug]);
+  
   // Handle click event for adding product to the cart
   const handleClick = () => {
     const isExistProduct = products.find((c) => c.id === item?.id)
@@ -62,8 +63,8 @@ function Details() {
     } else {
       // If product is not in the cart, add it with quantity 1
       const data = [...products, { ...item, quantity: 1 }]
-      localStorage.setItem("carts", JSON.stringify(data))
       setProducts(data)
+      localStorage.setItem("carts", JSON.stringify(data))
       setQuantity(1)
       toast.success("Product added to your bag!!")
     }

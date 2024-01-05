@@ -1,5 +1,5 @@
 import React from "react"
-import { Button, Input, Typography } from "@/common"
+import { Button, Typography } from "@/common"
 
 function KeeppInTouch() {
   return (

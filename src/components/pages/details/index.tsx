@@ -1,7 +1,8 @@
 'use client'
 // Importing necessary dependencies and styles
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import type { Swiper as SwiperTypeInstance } from "swiper";
 import "swiper/css"; // Importing base styles
 import "swiper/css/free-mode"; // Importing free mode styles
 import "swiper/css/navigation"; // Importing navigation styles
@@ -18,7 +19,7 @@ interface GalleryProps {
 
 const Gallery: React.FC<GalleryProps> = ({ images = [] }) => {
   // State to keep track of the thumbsSwiper instance
-  const [thumbsSwiper, setThumbsSwiper] = useState<Swiper | null>(null);
+  const [thumbsSwiper, setThumbsSwiper] = useState<SwiperTypeInstance | null>(null);
 
   return (
     <div className="relative w-2/5 md:w-full flex flex-col gap-[20px]">
