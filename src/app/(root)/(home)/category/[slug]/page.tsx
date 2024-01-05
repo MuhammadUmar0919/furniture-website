@@ -33,8 +33,8 @@ function Category() {
         let params: { [key: string]: string | number } = {
           page: currentPage,
           limit: itemsPerPage,
-          category: slug,
-        }
+          category: Array.isArray(slug) ? slug.join(',') : slug,
+        }        
 
         if (price > 0) {
           params = {
