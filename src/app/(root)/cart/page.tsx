@@ -75,6 +75,7 @@ function Cart() {
         <div className="w-[60%] md:w-[80%] flex items-center justify-between">
           {headerData.map((label) => (
             <Typography
+            key={label}
               data-aos="fade-left"
               placeholder
               variant="h4"

@@ -2,6 +2,7 @@ export const blockData = [
   {
     icon: [
       <svg
+        key="icon1"
         xmlns="http://www.w3.org/2000/svg"
         width="9"
         height="8"
@@ -12,6 +13,7 @@ export const blockData = [
         <circle cx="4.62797" cy="3.93022" r="3.87907" fill="#DBDBDB" />
       </svg>,
       <svg
+        key="icon2"
         xmlns="http://www.w3.org/2000/svg"
         width="26"
         height="26"
@@ -31,6 +33,7 @@ export const blockData = [
   {
     icon: [
       <svg
+        key="icon3"
         xmlns="http://www.w3.org/2000/svg"
         width="9"
         height="8"
@@ -41,6 +44,7 @@ export const blockData = [
         <circle cx="4.62797" cy="3.93022" r="3.87907" fill="#DBDBDB" />
       </svg>,
       <svg
+        key="icon4"
         xmlns="http://www.w3.org/2000/svg"
         width="26"
         height="26"
@@ -57,4 +61,4 @@ export const blockData = [
     count: 154,
     label: "sold",
   },
-]
+];

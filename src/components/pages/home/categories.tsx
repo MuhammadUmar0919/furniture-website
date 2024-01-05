@@ -5,7 +5,12 @@ import { Product } from "@/types"
 import { fetchProducts } from "@/api"
 import { categoryData } from "@/data/category"
 import React, { useEffect, useState } from "react"
-import { Card, CardBody, CardHeader, Typography } from "@material-tailwind/react";
+import {
+  Card,
+  CardBody,
+  CardHeader,
+  Typography,
+} from "@material-tailwind/react"
 
 function Categories() {
   const [data, setData] = useState<Product[]>([])
@@ -41,10 +46,9 @@ function Categories() {
       <div className="grid grid-cols-3 md:grid-cols-2 sm:grid-cols-1 justify-between gap-y-[60px] md:gap-y-10 sm:gap-y-8 gap-x-[18px] md:gap-x-4">
         {/* Mapping through categoryData array */}
         {categoryData.map(({ categoryName, urlImg }) => (
-          <Link href={`/category/${categoryName}`}>
+          <Link key={urlImg} href={`/category/${categoryName}`}>
             <Card
               placeholder
-              key={urlImg}
               data-aos="fade-up"
               className="w-full mt-6 shadow-md rounde-4xl"
             >
