@@ -49,7 +49,7 @@ function Contact() {
                 <textarea
                   id="message"
                   name="message"
-                  rows="4"
+                  rows={4}
                   required
                   placeholder="Type your message..."
                   className="w-full border-[1px] border-solid border-rgba(0, 0, 0, 0.25) rounded-[10px] px-[12px] py-[10px] outline-none"
