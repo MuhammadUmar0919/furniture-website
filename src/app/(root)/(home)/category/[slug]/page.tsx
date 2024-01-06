@@ -36,19 +36,19 @@ function Category() {
           category: Array.isArray(slug) ? slug.join(',') : slug,
         }        
 
-        if (price > 0) {
+        if (typeof price === 'number' && price > 0) {
           params = {
             ...params,
             price: price.toString(),
           }
         }
-
-        if (rating > 0) {
+        
+        if (typeof rating === 'number' && rating > 0) {
           params = {
             ...params,
             rating: rating.toString(),
           }
-        }
+        }        
 
         if (search !== "") {
           params = {
