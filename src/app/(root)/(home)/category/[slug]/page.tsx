@@ -32,57 +32,56 @@ function Category() {
   const itemsPerPage = 6
   const { price, rating } = useSelector((state: RootState) => state.filter)
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        let params: { [key: string]: string | number } = {
-          page: currentPage,
-          limit: itemsPerPage,
-          category: Array.isArray(slug) ? slug.join(",") : slug,
-        }
-
-        if (typeof price === "number" && price > 0) {
-          params = {
-            ...params,
-            price: price.toString(),
-          }
-        }
-
-        if (typeof rating === "number" && rating > 0) {
-          params = {
-            ...params,
-            rating: rating.toString(),
-          }
-        }
-
-        if (search !== "") {
-          params = {
-            ...params,
-            name: search.charAt(0).toUpperCase() + search.slice(1),
-          }
-        }
-
-        const response = await axios.get<{
-          items: Product[]
-          meta: { total_items: number }
-          totalItems: number
-        }>(`https://16a112ec7cdcde1f.mokky.dev/products`, { params })
-
-        const updatedProducts = response.data.items.map((item) => ({
-          ...item,
-          images: item.images || [], // handle the case where images is undefined
-        }))
-
-        setProducts(updatedProducts)
-        setTotalItems(response.data.meta.total_items)
-      } catch (error) {
-        console.error("Error fetching data:", error)
-        setError("Error fetching data. Please try again later.")
+  const fetchData = async () => {
+    try {
+      let params: { [key: string]: string | number } = {
+        page: currentPage,
+        limit: itemsPerPage,
+        category: Array.isArray(slug) ? slug.join(",") : slug,
       }
-    }
 
+      if (typeof price === "number" && price > 0) {
+        params = {
+          ...params,
+          price: price.toString(),
+        }
+      }
+
+      if (typeof rating === "number" && rating > 0) {
+        params = {
+          ...params,
+          rating: rating.toString(),
+        }
+      }
+
+      if (search !== "") {
+        params = {
+          ...params,
+          name: search.charAt(0).toUpperCase() + search.slice(1),
+        }
+      }
+
+      const response = await axios.get<{
+        items: Product[]
+        meta: { total_items: number }
+        totalItems: number
+      }>(`https://16a112ec7cdcde1f.mokky.dev/products`, { params })
+
+      const updatedProducts = response.data.items.map((item) => ({
+        ...item,
+        images: item.images || [], // handle the case where images is undefined
+      }))
+
+      setProducts(updatedProducts)
+      setTotalItems(response.data.meta.total_items)
+    } catch (error) {
+      console.error("Error fetching data:", error)
+      setError("Error fetching data. Please try again later.")
+    }
+  }
+  useEffect(() => {
     fetchData()
-  }, [currentPage, slug, price, rating, search])
+  }, [currentPage, slug, price, rating])
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page)
@@ -96,25 +95,34 @@ function Category() {
     setSearch(e.target.value)
   }
 
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setCurrentPage(1); // Reset page when submitting the search form
+    fetchData();
+  }
+
   return (
     <>
       <div className="container grid gap-y-10 md:gap-y-8 sm:gap-y-6">
         <div className="flex md:flex-col justify-between gap-10 md:gap-4 md:items-end px-32 md:px-0">
-          <div className="w-full flex items-center justify-between bg-[white] rounded-[10px] shadow-md text-rgba(34, 34, 34, 0.70) text-[20px] p-4">
-            <input
-              value={search}
-              placeholder="Search"
-              onChange={handleSearchChange}
-              className="w-full h-full outline-none "
-            />
-            <IconButton
-              placeholder
-              variant="text"
-              className="p-2 bg-transparent shadow-none bg-[white]"
-            >
-              <img alt="filter_image" src="/images/search.svg" />
-            </IconButton>
-          </div>
+        <form onSubmit={handleSearchSubmit}>
+            <div className="w-full flex items-center justify-between bg-[white] rounded-[10px] shadow-md text-rgba(34, 34, 34, 0.70) text-[20px] p-4">
+              <input
+                value={search}
+                placeholder="Search"
+                onChange={handleSearchChange}
+                className="w-full h-full outline-none "
+              />
+              <IconButton
+                placeholder
+                type="submit"
+                variant="text"
+                className="p-2 bg-transparent shadow-none bg-[white]"
+              >
+                <img alt="filter_image" src="/images/search.svg" />
+              </IconButton>
+            </div>
+          </form>
           <Tooltip placeholder content="Filter">
             <Button
               placeholder
