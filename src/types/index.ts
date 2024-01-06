@@ -1,6 +1,6 @@
 // Define the Product type
 export interface Product {
-    images: string[];
+    images: string[] | [];
     category: string;
     name: string;
     description: string;
