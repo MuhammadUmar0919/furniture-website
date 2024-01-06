@@ -3,7 +3,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface FilterState {
-  price: number;
+  price: number | string;
   rating: number;
   // Add other filter properties if needed
 }
@@ -18,7 +18,7 @@ const filterSlice = createSlice({
   name: "filter",
   initialState,
   reducers: {
-    setPrice: (state, action: PayloadAction<number>) => {
+    setPrice: (state, action: PayloadAction<number | string>) => {
       state.price = action.payload;
     },
     setRating: (state, action: PayloadAction<number>) => {

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react"
 import { instance } from "@/api"
 import Gallery from "@/components/pages/details"
-import { Button, Rating, Typography } from "@material-tailwind/react"
+import { Button, Rating, Spinner, Typography } from "@material-tailwind/react"
 import { useParams } from "next/navigation"
 import Link from "next/link"
 import { toast } from "sonner"
@@ -39,6 +39,7 @@ function Details() {
     const storedProducts: Product[] = JSON.parse(
       localStorage.getItem("carts") || "[]"
     )
+
     setProducts(storedProducts)
 
     const storedItem: Product | undefined = storedProducts.find(
@@ -136,13 +137,13 @@ function Details() {
   }
 
   if (!item) {
-    return null
+    return <Spinner className="h-16 w-16 text-primary" />;
   }
 
   return (
     <>
       <div className="container overflow-hidden flex md:flex-col justify-between md:justify-center gap-[100px]">
-        <Gallery images={item.images} />
+      <Gallery images={item?.images || []} />
         <div className="flex flex-col gap-[40px] md:gap-[35px] sm:gap-[30px]">
           <div className="grid gap-4 md:gap-[25px] sm:gap-[20px]">
             <Typography placeholder variant="h2" className="subtitle">

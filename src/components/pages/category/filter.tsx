@@ -46,14 +46,15 @@ export function Sidebar() {
       <hr className="my-2 border-blue-gray-50" />
       <List placeholder>
         <ListItem placeholder className="grid">
-          <Typography placeholder variant="body" color="blue-gray">
+          <Typography placeholder variant="lead" color="blue-gray">
             Price: {price}
           </Typography>
           <Input
             type="number"
             value={price}
-            placeholder="enter price"
+            placeholder="Enter price"
             onChange={(e) => dispatch(setPrice(e.target.value))}
+            crossOrigin="yourCrossOriginValue"
           />
         </ListItem>
         <ListItem placeholder>

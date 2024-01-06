@@ -77,7 +77,7 @@ function ProductCard({ row }: ProductCardProps) {
           floated={false}
           shadow={false}
           color="transparent"
-          className="h-72 md:h-[130px] sm:h-[100px] m-0 rounded-none"
+          className="h-72 md:h-64 sm:h-52 m-0 rounded-none"
         >
           <img
             loading="lazy"
