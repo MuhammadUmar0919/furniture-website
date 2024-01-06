@@ -13,7 +13,12 @@ import { Sidebar } from "@/components/pages/category/filter"
 import NewArrival from "@/components/pages/category/new-arrival"
 import KeeppInTouch from "@/components/keep-in-touch"
 import ProductCard from "@/components/cards/category-card"
-import { Button, IconButton, Tooltip, Typography } from "@material-tailwind/react"
+import {
+  Button,
+  IconButton,
+  Tooltip,
+  Typography,
+} from "@material-tailwind/react"
 
 function Category() {
   const { slug } = useParams()
@@ -28,27 +33,68 @@ function Category() {
   const { price, rating } = useSelector((state: RootState) => state.filter)
 
   useEffect(() => {
+    // const fetchData = async () => {
+    //   try {
+    //     let params: { [key: string]: string | number } = {
+    //       page: currentPage,
+    //       limit: itemsPerPage,
+    //       category: Array.isArray(slug) ? slug.join(',') : slug,
+    //     }
+
+    //     if (typeof price === 'number' && price > 0) {
+    //       params = {
+    //         ...params,
+    //         price: price.toString(),
+    //       }
+    //     }
+
+    //     if (typeof rating === 'number' && rating > 0) {
+    //       params = {
+    //         ...params,
+    //         rating: rating.toString(),
+    //       }
+    //     }
+
+    //     if (search !== "") {
+    //       params = {
+    //         ...params,
+    //         name: search.charAt(0).toUpperCase() + search.slice(1),
+    //       }
+    //     }
+
+    //     const response = await axios.get<{
+    //       items: Product[]
+    //       meta: { total_items: number }
+    //       totalItems: number
+    //     }>(`https://16a112ec7cdcde1f.mokky.dev/products`, { params })
+    //     setProducts(response.data.items)
+    //     setTotalItems(response.data.meta.total_items)
+    //   } catch (error) {
+    //     console.error("Error fetching data:", error)
+    //     setError("Error fetching data. Please try again later.")
+    //   }
+    // }
     const fetchData = async () => {
       try {
         let params: { [key: string]: string | number } = {
           page: currentPage,
           limit: itemsPerPage,
-          category: Array.isArray(slug) ? slug.join(',') : slug,
-        }        
+          category: Array.isArray(slug) ? slug.join(",") : slug,
+        }
 
-        if (typeof price === 'number' && price > 0) {
+        if (typeof price === "number" && price > 0) {
           params = {
             ...params,
             price: price.toString(),
           }
         }
-        
-        if (typeof rating === 'number' && rating > 0) {
+
+        if (typeof rating === "number" && rating > 0) {
           params = {
             ...params,
             rating: rating.toString(),
           }
-        }        
+        }
 
         if (search !== "") {
           params = {
@@ -62,7 +108,13 @@ function Category() {
           meta: { total_items: number }
           totalItems: number
         }>(`https://16a112ec7cdcde1f.mokky.dev/products`, { params })
-        setProducts(response.data.items)
+
+        const updatedProducts = response.data.items.map((item) => ({
+          ...item,
+          images: item.images || [], // handle the case where images is undefined
+        }))
+
+        setProducts(updatedProducts)
         setTotalItems(response.data.meta.total_items)
       } catch (error) {
         console.error("Error fetching data:", error)
