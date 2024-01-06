@@ -9,7 +9,7 @@ const year = new Date().getFullYear()
 const Footer = () => {
   const pathname = usePathname()
   return (
-    <footer className="container mx-auto">
+    <footer className="container mx-auto overflow-hidden">
       <hr className="my-2 border-blue-gray-50" />
       <div data-aos="zoom-out-up" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 pt-8 pb-6">
         <div className="col-span-1 md:col-span-2 lg:col-span-1 xl:col-span-1">
