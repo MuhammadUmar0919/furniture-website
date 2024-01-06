@@ -1,27 +1,19 @@
 'use client'
 
-// ProductCard.tsx
-import {
-  Card,
-  CardBody,
-  CardHeader,
-  Typography,
-  Rating,
-  IconButton,
-} from "@/common"
-import axios from "axios"
-import React, { useState } from "react"
-import Link from "next/link"
-import { Product } from "@/types"
-import { fetchProducts } from "@/api"
+import React, { useState, useEffect } from "react";
+import { Card, CardBody, CardHeader, Typography, Rating, IconButton } from "@/common";
+import axios from "axios";
+import Link from "next/link";
+import { Product } from "@/types";
+import { fetchProducts } from "@/api";
 import { toast } from 'sonner';
 
 interface ProductCardProps {
-  row: Product
+  row: Product;
 }
 
 function ProductCard({ row }: ProductCardProps) {
-  const { id, name, images, category, rating, price } = row
+  const { id, name, images, rating, price } = row;
   const [products, setProducts] = useState<Product[]>(
     JSON.parse(localStorage.getItem('carts') as string) || []
   );
@@ -34,35 +26,40 @@ function ProductCard({ row }: ProductCardProps) {
         {
           rating: newRating,
         }
-      )
-      await fetchProducts()
+      );
+      await fetchProducts();
     } catch (error) {
-      console.error("Error updating product rating:", error)
+      console.error("Error updating product rating:", error);
     }
-  }
+  };
 
   const handleClick = () => {
-    const isExistProduct = products.find(c => c.id === id);
-
-    if (isExistProduct) {
-      const updatedData = products.map(c => {
-        if (c.id === id) {
-          return {
-            ...c,
-            quantity: c.quantity + 1,
-          };
-        }
-
-        return c;
-      });
-
-      localStorage.setItem('carts', JSON.stringify(updatedData));
+    const existingProductIndex = products.findIndex((i) => i.id === id);
+    if (existingProductIndex !== -1) {
+      const updatedData = [...products];
+      updatedData[existingProductIndex] = {
+        ...updatedData[existingProductIndex],
+        quantity: updatedData[existingProductIndex].quantity + 1,
+      };
+      
+      setProducts(updatedData);
+      
     } else {
-      const data = [...products, { ...row, quantity: 1 }];
-      localStorage.setItem('carts', JSON.stringify(data));
+      // Product doesn't exist in the cart, add it
+      const storedProducts: Product[] = JSON.parse(
+        localStorage.getItem("carts") || "[]"
+      )
+  
+      const data = [...storedProducts, { ...row, quantity: 1 }];
+      setProducts(data)
+      toast.success("Product added to your cart!!");
     }
-    toast.success('Product added to your cart!!');
   };
+
+  useEffect(() => {
+    // Update local storage when products state changes
+    localStorage.setItem('carts', JSON.stringify(products));
+  }, [products]);
 
   return (
     <Card
@@ -122,7 +119,7 @@ function ProductCard({ row }: ProductCardProps) {
         </Typography>
       </CardBody>
     </Card>
-  )
+  );
 }
 
-export default ProductCard
+export default ProductCard;
