@@ -28,7 +28,7 @@ function Contact() {
                   type="text"
                   name="name"
                   placeholder="Enter your name..."
-                  className="w-full border-[1px] border-solid border-rgba(0, 0, 0, 0.25) rounded-[10px] px-[12px] py-[10px] outline-none"
+                  className="w-full bg-[white] border-[1px] border-solid border-rgba(0, 0, 0, 0.25) rounded-[10px] px-[12px] py-[10px] outline-none"
                 />
               </div>
 
@@ -40,7 +40,7 @@ function Contact() {
                   name="email"
                   required
                   placeholder="Enter your email..."
-                  className="w-full border-[1px] border-solid border-rgba(0, 0, 0, 0.25) rounded-[10px] px-[12px] py-[10px] outline-none"
+                  className="w-full bg-[white] border-[1px] border-solid border-rgba(0, 0, 0, 0.25) rounded-[10px] px-[12px] py-[10px] outline-none"
                 />
               </div>
 
@@ -52,7 +52,7 @@ function Contact() {
                   rows={4}
                   required
                   placeholder="Type your message..."
-                  className="w-full border-[1px] border-solid border-rgba(0, 0, 0, 0.25) rounded-[10px] px-[12px] py-[10px] outline-none"
+                  className="w-full bg-[white] border-[1px] border-solid border-rgba(0, 0, 0, 0.25) rounded-[10px] px-[12px] py-[10px] outline-none"
                 ></textarea>
 
                 <Checkbox

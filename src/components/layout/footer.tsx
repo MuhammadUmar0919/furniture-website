@@ -11,7 +11,7 @@ const Footer = () => {
   return (
     <footer className="container mx-auto">
       <hr className="my-2 border-blue-gray-50" />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 pt-8 pb-6">
+      <div data-aos="zoom-out-up" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 pt-8 pb-6">
         <div className="col-span-1 md:col-span-2 lg:col-span-1 xl:col-span-1">
           <Link href="/">
             <img src="/images/logo.svg" alt="logo" />
@@ -125,7 +125,7 @@ const Footer = () => {
         </div>
       </div>
       <hr className="my-6 border-gray-300" />
-      <div className="flex items-center justify-center md:justify-between">
+      <div data-aos="fade-up" className="flex items-center justify-center md:justify-between">
         <div className="mx-auto w-full md:w-4/5 xl:w-3/5 px-4 text-center">
           <Typography
             placeholder

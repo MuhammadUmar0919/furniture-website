@@ -23,7 +23,7 @@ const Payment: React.FC<PaymentProps> = () => {
       <input
         placeholder={placeholder}
         type={type}
-        className="w-full border-[1px] border-solid border-rgba(0, 0, 0, 0.25) rounded-[10px] px-[12px] py-[10px] outline-none"
+        className="w-full bg-[white] border-[1px] border-solid border-rgba(0, 0, 0, 0.25) rounded-[10px] px-[12px] py-[10px] outline-none"
       />
     </div>
   )
