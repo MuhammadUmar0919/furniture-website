@@ -19,11 +19,14 @@ function Details() {
     JSON.parse(localStorage.getItem("carts") || "[]")
   )
 
-  // Fetch data for the current product
   const fetchData = async () => {
     try {
       const response = await instance.get(`/products/${slug}`)
-      setItem(response.data)
+      const updatedItem: Product = {
+        ...response.data,
+        images: response.data.images || [], // handle the case where images is undefined
+      }
+      setItem(updatedItem)
     } catch (error) {
       console.error("Error fetching data:", error)
     }
@@ -137,13 +140,13 @@ function Details() {
   }
 
   if (!item) {
-    return <Spinner className="h-16 w-16 text-primary" />;
+    return <Spinner className="h-16 w-16 text-primary" />
   }
 
   return (
     <>
       <div className="container overflow-hidden flex md:flex-col justify-between md:justify-center gap-[100px]">
-      <Gallery images={item?.images || []} />
+        <Gallery images={item?.images || []} />
         <div className="flex flex-col gap-[40px] md:gap-[35px] sm:gap-[30px]">
           <div className="grid gap-4 md:gap-[25px] sm:gap-[20px]">
             <Typography placeholder variant="h2" className="subtitle">
