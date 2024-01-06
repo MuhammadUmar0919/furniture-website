@@ -105,7 +105,7 @@ function Category() {
     <>
       <div className="container grid gap-y-10 md:gap-y-8 sm:gap-y-6">
         <div className="flex md:flex-col justify-between gap-10 md:gap-4 md:items-end px-32 md:px-0">
-        <form onSubmit={handleSearchSubmit}>
+        <form onSubmit={handleSearchSubmit} className='contents'>
             <div className="w-full flex items-center justify-between bg-[white] rounded-[10px] shadow-md text-rgba(34, 34, 34, 0.70) text-[20px] p-4">
               <input
                 value={search}
