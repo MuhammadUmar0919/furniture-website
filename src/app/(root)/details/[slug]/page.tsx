@@ -83,28 +83,31 @@ function Details() {
     }
   }
 
-  // Increment product quantity
   const handleIncrement = (id: number) => {
-    const isExistProduct = products.find((c) => c.id === item?.id)
-
+    const isExistProduct = products.find((c) => c.id === id);
+  
     if (isExistProduct) {
       // If product already exists in the cart, update its quantity
-      const updatedData = products.map((c) =>
-        c.id === item?.id ? { ...c, quantity: c.quantity + 1 } : c
-      )
-      localStorage.setItem("carts", JSON.stringify(updatedData))
-      setProducts(updatedData)
-      setQuantity(isExistProduct.quantity + 1)
+      const updatedData: Product[] = products.map((c) =>
+        c.id === id ? { ...c, quantity: c.quantity + 1 } : c
+      );
+      localStorage.setItem("carts", JSON.stringify(updatedData));
+      setProducts(updatedData);
+      setQuantity(isExistProduct.quantity + 1);
     } else {
       // If product is not in the cart, add it with quantity 1
-      const data = [...products, { ...item, quantity: 1 }]
-      localStorage.setItem("carts", JSON.stringify(data))
-      // setProducts(data)
-      setQuantity(1)
-      toast.success("Product added to your cart!!")
+      const data = [...products, { ...item, quantity: 1 }];
+      localStorage.setItem("carts", JSON.stringify(data));
+      const storedProducts: Product[] = JSON.parse(
+        localStorage.getItem("carts") || "[]"
+      )
+  
+      setProducts(storedProducts)
+      setQuantity(1);
+      toast.success("Product added to your cart!!");
     }
-  }
-
+  };
+  
   // Decrement product quantity or remove if quantity is 1
   const handleDecrement = (id: number) => {
     const existProduct = products.find((product) => product.id === id)

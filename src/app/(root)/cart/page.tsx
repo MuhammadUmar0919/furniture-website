@@ -7,16 +7,19 @@ import React, { useEffect, useState } from "react"
 import { toast } from "sonner"
 const headerData = ["Product", "Quantity", "Price"]
 function Cart() {
-  const [total, setTotal] = useState<number>(0)
+  const [total, setTotal] = useState<number>(0);
+
+  // Use localStorage or provide an empty array as a default value
   const [products, setProducts] = useState<Product[]>(
-    JSON.parse(localStorage.getItem("carts") || "[]")
-  )
+    typeof window !== "undefined" ? JSON.parse(localStorage.getItem("carts") || "[]") : []
+  );
+
   const removeProduct = (id: number) => {
-    const updatedCart = products.filter((product) => product.id !== id)
-    localStorage.setItem("carts", JSON.stringify(updatedCart))
-    setProducts(updatedCart)
-    toast.success("Product removed to your cart!!")
-  }
+    const updatedCart = products.filter((product) => product.id !== id);
+    localStorage.setItem("carts", JSON.stringify(updatedCart));
+    setProducts(updatedCart);
+    toast.success("Product removed from your cart!!");
+  };
 
   const handleIncrement = (id: number) => {
     const updatedCart = products.map((product) => {
@@ -24,45 +27,46 @@ function Cart() {
         return {
           ...product,
           quantity: product.quantity + 1,
-        }
+        };
       }
 
-      return product
-    })
+      return product;
+    });
 
-    localStorage.setItem("carts", JSON.stringify(updatedCart))
-    setProducts(updatedCart)
-  }
+    localStorage.setItem("carts", JSON.stringify(updatedCart));
+    setProducts(updatedCart);
+  };
 
   const handleDecrement = (id: number) => {
-    const existProduct = products.find((product) => product.id === id)
+    const existProduct = products.find((product) => product.id === id);
 
     if (existProduct?.quantity === 1) {
-      removeProduct(existProduct.id)
+      removeProduct(existProduct.id);
     } else {
       const updatedCart = products.map((product) => {
         if (product.id === id) {
           return {
             ...product,
             quantity: product.quantity - 1,
-          }
+          };
         }
 
-        return product
-      })
+        return product;
+      });
 
-      localStorage.setItem("carts", JSON.stringify(updatedCart))
-      setProducts(updatedCart)
+      localStorage.setItem("carts", JSON.stringify(updatedCart));
+      setProducts(updatedCart);
     }
-  }
+  };
 
   useEffect(() => {
     const total = products.reduce((acc, item) => {
-      return acc + item.price * item.quantity
-    }, 0)
+      return acc + item.price * item.quantity;
+    }, 0);
 
-    setTotal(total)
-  }, [products])
+    setTotal(total);
+  }, [products]);
+
   return (
     <div className="container grid gap-[70px] md:gap-[50px]">
       <Typography
