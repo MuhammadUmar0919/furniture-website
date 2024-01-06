@@ -24,7 +24,7 @@ function Details() {
       const response = await instance.get(`/products/${slug}`)
       const updatedItem: Product = {
         ...response.data,
-        images: response.data.images || [], // handle the case where images is undefined
+        images: response.data.images || [], 
       }
       setItem(updatedItem)
     } catch (error) {
@@ -99,7 +99,7 @@ function Details() {
       // If product is not in the cart, add it with quantity 1
       const data = [...products, { ...item, quantity: 1 }]
       localStorage.setItem("carts", JSON.stringify(data))
-      setProducts(data)
+      // setProducts(data)
       setQuantity(1)
       toast.success("Product added to your cart!!")
     }
