@@ -26,10 +26,6 @@ const Gallery: React.FC<GalleryProps> = ({ images = [] }) => {
       {/* Main Swiper for displaying images */}
       <div className="mySwiper2">
         <Swiper
-          style={{
-            "--swiper-navigation-color": "#fff",
-            "--swiper-pagination-color": "#fff",
-          }}
           loop={true}
           spaceBetween={10}
           thumbs={{ swiper: thumbsSwiper }}
