@@ -4,6 +4,7 @@ import { Product } from "@/types"
 import { Button, Card, Tooltip, Typography } from "@material-tailwind/react"
 import Link from "next/link"
 import React, { useEffect, useState } from "react"
+import { toast } from "sonner"
 const headerData = ["Product", "Quantity", "Price"]
 function Cart() {
   const [total, setTotal] = useState<number>(0)
@@ -14,6 +15,7 @@ function Cart() {
     const updatedCart = products.filter((product) => product.id !== id)
     localStorage.setItem("carts", JSON.stringify(updatedCart))
     setProducts(updatedCart)
+    toast.success("Product removed to your cart!!")
   }
 
   const handleIncrement = (id: number) => {
@@ -138,7 +140,7 @@ function Cart() {
                   </Typography>
                 </div>
                 <Tooltip placeholder content="Remove">
-                  <Button placeholder className="bg-[white] rounded-full p-2">
+                  <Button onClick={() => removeProduct(id)} placeholder className="bg-[white] rounded-full p-2">
                     <img
                       loading="lazy"
                       src="/images/close.png"

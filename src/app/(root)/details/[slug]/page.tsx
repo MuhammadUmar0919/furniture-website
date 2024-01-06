@@ -36,18 +36,27 @@ function Details() {
 
   // Initialize products and quantity from localStorage on component mount
   useEffect(() => {
-    const storedProducts: Product[] = JSON.parse(localStorage.getItem("carts") || "[]");
-    setProducts(storedProducts);
-  
+    const storedProducts: Product[] = JSON.parse(
+      localStorage.getItem("carts") || "[]"
+    )
+    setProducts(storedProducts)
+
     const storedItem: Product | undefined = storedProducts.find(
       (product: Product) => product.id === Number(slug)
-    );
-  
+    )
+
     if (storedItem) {
-      setQuantity(storedItem.quantity);
+      setQuantity(storedItem.quantity)
     }
-  }, [slug]);
-  
+  }, [slug])
+
+  const removeProduct = (id: number) => {
+    const updatedCart = products.filter((product) => product.id !== id)
+    localStorage.setItem("carts", JSON.stringify(updatedCart))
+    setProducts(updatedCart)
+    toast.success("Product removed to your cart!!")
+  }
+
   // Handle click event for adding product to the cart
   const handleClick = () => {
     const isExistProduct = products.find((c) => c.id === item?.id)
@@ -63,10 +72,10 @@ function Details() {
     } else {
       // If product is not in the cart, add it with quantity 1
       const data = [...products, { ...item, quantity: 1 }]
-      setProducts(data)
+      // setProducts(data)
       localStorage.setItem("carts", JSON.stringify(data))
       setQuantity(1)
-      toast.success("Product added to your bag!!")
+      toast.success("Product added to your cart!!")
     }
   }
 
@@ -88,7 +97,7 @@ function Details() {
       localStorage.setItem("carts", JSON.stringify(data))
       setProducts(data)
       setQuantity(1)
-      toast.success("Product added to your bag!!")
+      toast.success("Product added to your cart!!")
     }
   }
 
@@ -97,7 +106,8 @@ function Details() {
     const existProduct = products.find((product) => product.id === id)
 
     if (existProduct?.quantity === 1) {
-      return null
+      removeProduct(existProduct.id)
+      setQuantity(0)
     } else {
       const updatedCart = products.map((product) =>
         product.id === id
@@ -173,7 +183,7 @@ function Details() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Button
-                placeholder
+                placeholder="true"
                 variant="outlined"
                 className="border-primary text-base"
                 onClick={() => handleDecrement(item.id)}
@@ -181,14 +191,14 @@ function Details() {
                 -
               </Button>
               <Button
-                placeholder
+                placeholder="true"
                 variant="outlined"
                 className="border-primary text-base"
               >
                 {quantity}
               </Button>
               <Button
-                placeholder
+                placeholder="true"
                 variant="outlined"
                 className="border-primary text-base"
                 onClick={() => handleIncrement(item.id)}
@@ -198,7 +208,7 @@ function Details() {
             </div>
             <Link href="/cart">
               <Button
-                placeholder
+                placeholder="true"
                 onClick={handleClick}
                 className="rounded-[28px] p-2 bg-lightCyan shadow-5.671px 11.341px 14.177px 0px rgba(17, 70, 131, 0.25)"
               >

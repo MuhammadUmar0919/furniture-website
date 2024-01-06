@@ -61,7 +61,7 @@ function ProductCard({ row }: ProductCardProps) {
       const data = [...products, { ...row, quantity: 1 }];
       localStorage.setItem('carts', JSON.stringify(data));
     }
-    toast.success('Product added to your bag!!');
+    toast.success('Product added to your cart!!');
   };
 
   return (
