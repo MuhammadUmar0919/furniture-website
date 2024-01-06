@@ -178,7 +178,7 @@ function Cart() {
         </div>
         <div className="flex items-center justify-between">
           <Link
-            href="/cateory/Sofa"
+            href="/category/Sofa"
             className="text-dark flex items-center gap-2 text-2xl font-bold"
           >
             <svg
