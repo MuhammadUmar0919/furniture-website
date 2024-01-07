@@ -4,7 +4,7 @@ import { Button, Typography } from "@/common"
 
 function AboutUs() {
   return (
-    <div data-aos="fade-up" className="container flex gap-4">
+    <div data-aos="fade-up" className="container flex md:flex-col-reverse gap-8">
       <div className="flex flex-col gap-5 text-center items-center">
         <Typography placeholder variant="h2" className="subtitle">
           About Us
@@ -35,7 +35,7 @@ function AboutUs() {
           </Button>
         </Link>
       </div>
-      <img src="/images/aboutUsLamp.png" alt="about_us_lamp" loading='lazy' />
+      <img src="/images/aboutUsLamp.png" alt="about_us_lamp" loading='lazy' className="w-[400px] h-[400px] md:w-full md:h-[400px]" />
     </div>
   )
 }

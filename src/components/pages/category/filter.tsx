@@ -1,27 +1,21 @@
-import React from "react"
-import {
-  Card,
-  Typography,
-  List,
-  ListItem,
-  Rating,
-  Button,
-  Input,
-} from "@material-tailwind/react"
-import { RootState } from "@/redux/store"
-import { useDispatch, useSelector } from "react-redux"
-import { setPrice, setRating, clearFilters } from "@/redux/filterSlice"
-import { categories } from "@/data"
-import Link from "next/link"
+// Sidebar.jsx
+import React from "react";
+import { Card, Typography, List, ListItem, Rating, Button } from "@material-tailwind/react";
+import { RootState } from "@/redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { setPrice, setRating, clearFilters } from "@/redux/filterSlice";
+import { categories } from "@/data";
+import Link from "next/link";
+import MultiRangeSlider from "@/components/slider";
 
 export function Sidebar() {
-  const dispatch = useDispatch()
-  const { price, rating } = useSelector((state: RootState) => state.filter)
-  const { isOpen } = useSelector((state: RootState) => state.sidebar)
+  const dispatch = useDispatch();
+  const { price, rating } = useSelector((state: RootState) => state.filter);
+  const { isOpen } = useSelector((state: RootState) => state.sidebar);
 
   const handleClearFilters = () => {
-    dispatch(clearFilters())
-  }
+    dispatch(clearFilters());
+  };
 
   return (
     <Card
@@ -45,19 +39,13 @@ export function Sidebar() {
       </div>
       <hr className="my-2 border-blue-gray-50" />
       <List placeholder>
-        <ListItem placeholder className="grid">
+        <ListItem ripple={false} placeholder>
           <Typography placeholder variant="lead" color="blue-gray">
-            Price: {price}
+            {/* Price: {price} */}
           </Typography>
-          <Input
-            type="number"
-            value={price}
-            placeholder="Enter price"
-            onChange={(e) => dispatch(setPrice(e.target.value))}
-            crossOrigin="yourCrossOriginValue"
-          />
+          <MultiRangeSlider min={price.min} max={price.max} onChange={(values) => dispatch(setPrice(values))} />
         </ListItem>
-        <ListItem placeholder>
+        <ListItem ripple={false} placeholder>
           <Rating
             placeholder
             value={rating}
@@ -67,10 +55,10 @@ export function Sidebar() {
         <hr className="my-2 border-blue-gray-50" />
         {categories.map((category, idx) => (
           <Link key={idx} href={`/category/${category}`}>
-            <ListItem placeholder>{category}</ListItem>
+            <ListItem ripple={false} placeholder>{category}</ListItem>
           </Link>
         ))}
       </List>
     </Card>
-  )
+  );
 }

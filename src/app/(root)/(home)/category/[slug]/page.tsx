@@ -99,6 +99,7 @@ function Category() {
     e.preventDefault();
     setCurrentPage(1); // Reset page when submitting the search form
     fetchData();
+    setSearch("")
   }
 
   return (

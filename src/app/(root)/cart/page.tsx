@@ -7,19 +7,21 @@ import React, { useEffect, useState } from "react"
 import { toast } from "sonner"
 const headerData = ["Product", "Quantity", "Price"]
 function Cart() {
-  const [total, setTotal] = useState<number>(0);
+  const [total, setTotal] = useState<number>(0)
 
   // Use localStorage or provide an empty array as a default value
   const [products, setProducts] = useState<Product[]>(
-    typeof window !== "undefined" ? JSON.parse(localStorage.getItem("carts") || "[]") : []
-  );
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("carts") || "[]")
+      : []
+  )
 
   const removeProduct = (id: number) => {
-    const updatedCart = products.filter((product) => product.id !== id);
-    localStorage.setItem("carts", JSON.stringify(updatedCart));
-    setProducts(updatedCart);
-    toast.success("Product removed from your cart!!");
-  };
+    const updatedCart = products.filter((product) => product.id !== id)
+    localStorage.setItem("carts", JSON.stringify(updatedCart))
+    setProducts(updatedCart)
+    toast.success("Product removed from your cart!!")
+  }
 
   const handleIncrement = (id: number) => {
     const updatedCart = products.map((product) => {
@@ -27,45 +29,45 @@ function Cart() {
         return {
           ...product,
           quantity: product.quantity + 1,
-        };
+        }
       }
 
-      return product;
-    });
+      return product
+    })
 
-    localStorage.setItem("carts", JSON.stringify(updatedCart));
-    setProducts(updatedCart);
-  };
+    localStorage.setItem("carts", JSON.stringify(updatedCart))
+    setProducts(updatedCart)
+  }
 
   const handleDecrement = (id: number) => {
-    const existProduct = products.find((product) => product.id === id);
+    const existProduct = products.find((product) => product.id === id)
 
     if (existProduct?.quantity === 1) {
-      removeProduct(existProduct.id);
+      removeProduct(existProduct.id)
     } else {
       const updatedCart = products.map((product) => {
         if (product.id === id) {
           return {
             ...product,
             quantity: product.quantity - 1,
-          };
+          }
         }
 
-        return product;
-      });
+        return product
+      })
 
-      localStorage.setItem("carts", JSON.stringify(updatedCart));
-      setProducts(updatedCart);
+      localStorage.setItem("carts", JSON.stringify(updatedCart))
+      setProducts(updatedCart)
     }
-  };
+  }
 
   useEffect(() => {
     const total = products.reduce((acc, item) => {
-      return acc + item.price * item.quantity;
-    }, 0);
+      return acc + item.price * item.quantity
+    }, 0)
 
-    setTotal(total);
-  }, [products]);
+    setTotal(total)
+  }, [products])
 
   return (
     <div className="container grid gap-[70px] md:gap-[50px]">
@@ -81,7 +83,7 @@ function Cart() {
         <div className="w-[60%] md:w-[80%] flex items-center justify-between">
           {headerData.map((label) => (
             <Typography
-            key={label}
+              key={label}
               data-aos="fade-left"
               placeholder
               variant="h4"
@@ -100,13 +102,13 @@ function Cart() {
                 data-aos="fade-up"
                 className="w-full flex-row items-center justify-between p-5"
               >
-                <div className="w-[60%] md:w-[80%] flex items-center justify-between">
-                  <Link href={`/details/${id}`}>
+                <div className="w-[60%] md:w-full md:gap-6 flex md:flex-col items-center justify-between">
+                  <Link href={`/details/${id}`} className="contents">
                     <img
                       src={images[0]}
                       loading="lazy"
                       alt="profile-picture"
-                      className="w-[160px] h-[130px] md:w-[140px] md:h-[110px] rounded-[12px]"
+                      className="w-[160px] h-[130px] md:w-full md:h-[110px] rounded-[12px]"
                     />
                   </Link>
                   <div className="flex items-center gap-2">
@@ -144,12 +146,22 @@ function Cart() {
                   </Typography>
                 </div>
                 <Tooltip placeholder content="Remove">
-                  <Button onClick={() => removeProduct(id)} placeholder className="bg-[white] rounded-full p-2">
-                    <img
-                      loading="lazy"
-                      src="/images/close.png"
-                      alt="close_image"
-                    />
+                  <Button
+                    onClick={() => removeProduct(id)}
+                    placeholder
+                    className="bg-[white] rounded-full p-2"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="#787A80"
+                        d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12z"
+                      />
+                    </svg>
                   </Button>
                 </Tooltip>
               </Card>
